@@ -1,0 +1,332 @@
+<template>
+    <div class="cockpit">
+        <!-- ============ HEADER ============ -->
+        <header class="cockpit__header">
+            <div class="cockpit__heading">
+                <h1 class="cockpit__title">{label.Title}</h1>
+                <p class="cockpit__subtitle">{label.Subtitle}</p>
+            </div>
+            <div class="cockpit__live-badge" if:true={showContent}>
+                <span class="cockpit__live-dot"></span>
+                <span>{label.LiveBadge}</span>
+            </div>
+        </header>
+
+        <!-- ============ LOADING ============ -->
+        <template if:true={showLoading}>
+            <div class="state state--loading" role="status" aria-live="polite">
+                <div class="skeleton-kpis">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+                <div class="skeleton-charts">
+                    <div class="skeleton-panel skeleton-panel--wide"></div>
+                    <div class="skeleton-panel"></div>
+                </div>
+                <div class="state__loading-row">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span class="state__loading-text">{label.LoadingMsg}</span>
+                </div>
+            </div>
+        </template>
+
+        <!-- ============ ERROR ============ -->
+        <template if:true={showError}>
+            <div class="state state--error" role="alert">
+                <div class="state__glyph state__glyph--error" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" class="state__icon">
+                        <path
+                            d="M12 2 1 21h22L12 2zm0 6v6m0 3v.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </div>
+                <h2 class="state__title">{label.ErrorTitle}</h2>
+                <p class="state__msg">{label.ErrorMsg}</p>
+                <button class="btn btn--retry" onclick={handleRetry}>
+                    <svg viewBox="0 0 24 24" class="btn__icon" aria-hidden="true">
+                        <path
+                            d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                    <span>{label.Retry}</span>
+                </button>
+            </div>
+        </template>
+
+        <!-- ============ EMPTY ============ -->
+        <template if:true={showEmpty}>
+            <div class="state state--empty">
+                <div class="state__glyph state__glyph--empty" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" class="state__icon">
+                        <path
+                            d="M3 13.5 12 4l9 9.5M5 12v7h14v-7"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                        <circle cx="12" cy="14" r="1.4" fill="currentColor"></circle>
+                    </svg>
+                </div>
+                <h2 class="state__title">{label.EmptyTitle}</h2>
+                <p class="state__msg">{label.EmptyMsg}</p>
+            </div>
+        </template>
+
+        <!-- ============ CONTENT ============ -->
+        <template if:true={showContent}>
+            <!-- KPI ROW -->
+            <div class="kpi-row">
+                <template for:each={kpiCards} for:item="card">
+                    <div key={card.key} class={card.accent} data-accent={card.accent}>
+                        <article class="kpi-card">
+                            <div class="kpi-card__glow"></div>
+                            <div class="kpi-card__icon">
+                                <template if:true={card.isTokens}>
+                                    <svg viewBox="0 0 24 24" class="kpi-card__svg" aria-hidden="true">
+                                        <path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                                        <circle cx="18" cy="17" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+                                    </svg>
+                                </template>
+                                <template if:true={card.isFc}>
+                                    <svg viewBox="0 0 24 24" class="kpi-card__svg" aria-hidden="true">
+                                        <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+                                        <circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+                                    </svg>
+                                </template>
+                                <template if:true={card.isInteractions}>
+                                    <svg viewBox="0 0 24 24" class="kpi-card__svg" aria-hidden="true">
+                                        <path d="M4 5h16v11H9l-5 4V5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+                                    </svg>
+                                </template>
+                                <template if:true={card.isFeatures}>
+                                    <svg viewBox="0 0 24 24" class="kpi-card__svg" aria-hidden="true">
+                                        <rect x="4" y="4" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                                        <rect x="13" y="4" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                                        <rect x="4" y="13" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                                        <rect x="13" y="13" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                                    </svg>
+                                </template>
+                            </div>
+                            <div class="kpi-card__value">{card.value}</div>
+                            <div class="kpi-card__label">{card.label}</div>
+                        </article>
+                    </div>
+                </template>
+            </div>
+
+            <!-- CHART GRID -->
+            <div class="grid">
+                <!-- USAGE OVER TIME -->
+                <section class="panel panel--wide">
+                    <div class="panel__head">
+                        <div>
+                            <h2 class="panel__title">{label.UsageOverTime}</h2>
+                            <p class="panel__caption">{label.UsageOverTimeCaption}</p>
+                        </div>
+                    </div>
+                    <template if:true={hasUsageOverTime}>
+                        <div class="area-wrap">
+                            <svg
+                                class="area-chart"
+                                viewBox={areaChart.viewBox}
+                                role="img"
+                                aria-label={areaChart.ariaLabel}
+                            >
+                                <defs>
+                                    <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" class="area-stop-top"></stop>
+                                        <stop offset="100%" class="area-stop-bottom"></stop>
+                                    </linearGradient>
+                                    <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" class="line-stop-a"></stop>
+                                        <stop offset="100%" class="line-stop-b"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <!-- grid -->
+                                <template for:each={areaChart.gridLines} for:item="g">
+                                    <line
+                                        key={g.key}
+                                        x1={g.x1}
+                                        y1={g.y}
+                                        x2={g.x2}
+                                        y2={g.y}
+                                        class="area-grid"
+                                    ></line>
+                                </template>
+                                <!-- area + line -->
+                                <path d={areaChart.areaPath} class="area-fill"></path>
+                                <path d={areaChart.linePath} class="area-line"></path>
+                                <!-- points -->
+                                <template for:each={areaChart.points} for:item="p">
+                                    <circle
+                                        key={p.key}
+                                        cx={p.x}
+                                        cy={p.y}
+                                        r="3.5"
+                                        class="area-dot"
+                                    >
+                                        <title>{p.dayLabel}: {p.tokensLabel}</title>
+                                    </circle>
+                                </template>
+                            </svg>
+                            <div class="area-xaxis">
+                                <template for:each={areaChart.xLabels} for:item="x">
+                                    <span key={x.key} class="area-xlabel">{x.dayLabel}</span>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={hasUsageOverTime}>
+                        <div class="section-empty">{label.EmptySection}</div>
+                    </template>
+                </section>
+
+                <!-- BY FEATURE DONUT -->
+                <section class="panel">
+                    <div class="panel__head">
+                        <div>
+                            <h2 class="panel__title">{label.ByFeature}</h2>
+                            <p class="panel__caption">{label.ByFeatureCaption}</p>
+                        </div>
+                    </div>
+                    <template if:true={hasFeatureData}>
+                        <div class="donut-wrap">
+                            <div class="donut-figure">
+                                <svg class="donut" viewBox={donut.viewBox} role="img" aria-label={donut.ariaLabel}>
+                                    <circle
+                                        class="donut-track"
+                                        cx="80"
+                                        cy="80"
+                                        r={donut.trackR}
+                                    ></circle>
+                                    <g class="donut-arcs">
+                                        <template for:each={donut.arcs} for:item="arc">
+                                            <circle
+                                                key={arc.key}
+                                                cx="80"
+                                                cy="80"
+                                                r={arc.r}
+                                                class="donut-arc"
+                                                stroke={arc.color}
+                                                stroke-dasharray={arc.dasharray}
+                                                stroke-dashoffset={arc.dashoffset}
+                                            ></circle>
+                                        </template>
+                                    </g>
+                                </svg>
+                                <div class="donut-center">
+                                    <span class="donut-center__pct">{donut.centerPct}</span>
+                                    <span class="donut-center__cap">{label.ShareOfTotal}</span>
+                                </div>
+                            </div>
+                            <ul class="legend">
+                                <template for:each={donut.legend} for:item="row">
+                                    <li key={row.key} class="legend__row" data-zero={row.isZero}>
+                                        <span class="legend__swatch" style={row.style}></span>
+                                        <span class="legend__name">{row.feature}</span>
+                                        <span class="legend__pct">{row.pctLabel}</span>
+                                        <span class="legend__tokens">{row.tokensLabel}</span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                    <template if:false={hasFeatureData}>
+                        <div class="section-empty">{label.EmptySection}</div>
+                    </template>
+                </section>
+
+                <!-- TOP USERS -->
+                <section class="panel panel--wide">
+                    <div class="panel__head">
+                        <div>
+                            <h2 class="panel__title">{label.TopUsers}</h2>
+                            <p class="panel__caption">{label.TopUsersCaption}</p>
+                        </div>
+                    </div>
+                    <template if:true={hasTopUsers}>
+                        <ul class="bars">
+                            <template for:each={userBars} for:item="bar">
+                                <li key={bar.key} class="bar-row">
+                                    <span class="bar-avatar" style={bar.avatarStyle}
+                                        >{bar.initials}</span
+                                    >
+                                    <div class="bar-main">
+                                        <div class="bar-meta">
+                                            <span class="bar-name">{bar.userName}</span>
+                                            <span class="bar-values">
+                                                <span class="bar-tokens">{bar.tokensLabel}</span>
+                                                <span class="bar-fc">{bar.fcLabel}</span>
+                                            </span>
+                                        </div>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style={bar.barStyle}></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template if:false={hasTopUsers}>
+                        <div class="section-empty">{label.EmptySection}</div>
+                    </template>
+                </section>
+
+                <!-- METERED SPLIT -->
+                <section class="panel">
+                    <div class="panel__head">
+                        <div>
+                            <h2 class="panel__title">{label.MeteredSplit}</h2>
+                        </div>
+                    </div>
+                    <div class="metered">
+                        <div class="metered__splitbar">
+                            <div class="metered__seg metered__seg--billable" style={metered.billableStyle}></div>
+                            <div class="metered__seg metered__seg--included" style={metered.includedStyle}></div>
+                        </div>
+                        <div class="metered__pills">
+                            <div class="pill pill--billable">
+                                <div class="pill__top">
+                                    <span class="pill__dot"></span>
+                                    <span class="pill__label">{label.Billable}</span>
+                                    <span class="pill__badge">{label.Metered}</span>
+                                </div>
+                                <div class="pill__value">
+                                    {metered.billableLabel}
+                                    <span class="pill__unit">{label.FcUnit}</span>
+                                </div>
+                                <div class="pill__pct">{metered.billablePctLabel}</div>
+                            </div>
+                            <div class="pill pill--included">
+                                <div class="pill__top">
+                                    <span class="pill__dot"></span>
+                                    <span class="pill__label">{label.Included}</span>
+                                </div>
+                                <div class="pill__value">
+                                    {metered.includedLabel}
+                                    <span class="pill__unit">{label.FcUnit}</span>
+                                </div>
+                                <div class="pill__pct">{metered.includedPctLabel}</div>
+                            </div>
+                        </div>
+                        <p class="metered__footnote">{label.MeteredFootnote}</p>
+                    </div>
+                </section>
+            </div>
+        </template>
+    </div>
+</template>

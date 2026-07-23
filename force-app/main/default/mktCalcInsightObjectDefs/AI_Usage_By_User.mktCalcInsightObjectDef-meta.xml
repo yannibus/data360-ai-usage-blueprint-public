@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MktCalcInsightObjectDef xmlns="http://soap.sforce.com/2006/04/metadata">
+    <creationType>Custom</creationType>
+    <!--
+      GRAIN NOTE (2026-07-09): this definition groups down to the individual
+      AiAgentInteractionId (one row per Coworker/agent round-trip). That grain is
+      what lets Agentforce Coworker be metered at its real rate: 72 Flex Credits
+      per round-trip (Salesforce pricing rule; validated with controlled questions — each
+      question produces exactly one distinct AiAgentInteractionId regardless of token
+      volume). At interaction grain each row IS one round-trip, so
+      the Coworker branch is a flat MAX(72) per row (the CI engine forbids
+      COUNT(DISTINCT) as a summable measure, hence the grain change rather than a
+      distinct-count). Every other feature keeps the per-action/per-token estimate.
+
+      DEPLOY NOTE: this is the correct definition for a NEW org. If a CI was previously
+      published at a coarser grain (e.g. feature x day x is_metered) BEFORE this rule
+      was known, the platform refuses to add the interaction dimension to that
+      already-published CI ("not an eligible KQ dimension"), so it keeps the per-token
+      estimate for Coworker in the cockpit; the exact 72/round-trip figure then comes
+      from the Tier 1 SQL (queries/02-flex-credits-per-user.sql). A fresh deploy of this
+      file gets the correct model from the start.
+
+      ENGINE LIMITS baked in below: no CEILING (unsupported by the CI engine — the
+      per-token estimate is un-rounded here, which the Tier 1 SQL rounds up, a ~few-FC
+      difference); no COUNT(DISTINCT) (unsupported as a measure).
+    -->
+    <expression>SELECT
+    ssot__User__dlm.ssot__FullName__c AS user_name__c,
+    ssot__User__dlm.ssot__Username__c AS username__c,
+    CASE
+        WHEN AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c IS NULL THEN &apos;Untagged&apos;
+        ELSE AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c
+    END AS feature_normalized__c,
+    date_trunc(&apos;day&apos;, AiAgentGenerativeAiUsage_std__dlm.Timestamp__c) AS usage_day__c,
+    AiAgentGenerativeAiUsage_std__dlm.IsMeteredIndicator__c AS is_metered__c,
+    AiAgentGenerativeAiUsage_std__dlm.AiAgentInteractionId__c AS interaction_id__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.PromptTotalTokenCount__c) AS total_tokens__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.PromptInputTokenCount__c) AS input_tokens__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.PromptCompletionTokenCount__c) AS completion_tokens__c,
+    COUNT(*) AS nb_interactions__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.UsageQuantity__c) AS nb_actions__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.UsageQuantity__c) * 20 AS estimated_fc_actions__c,
+    SUM(AiAgentGenerativeAiUsage_std__dlm.PromptTotalTokenCount__c) / 2000.0 * 4 AS estimated_fc_tokens__c,
+    CASE
+        WHEN (CASE WHEN AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c IS NULL THEN &apos;Untagged&apos; ELSE AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c END) = &apos;AgentforceCoworker&apos;
+            THEN MAX(72)
+        ELSE (SUM(AiAgentGenerativeAiUsage_std__dlm.UsageQuantity__c) * 20) + (SUM(AiAgentGenerativeAiUsage_std__dlm.PromptTotalTokenCount__c) / 2000.0 * 4)
+    END AS total_estimated_fc__c
+FROM AiAgentGenerativeAiUsage_std__dlm
+JOIN ssot__User__dlm ON (AiAgentGenerativeAiUsage_std__dlm.UserId__c = ssot__User__dlm.ssot__Id__c)
+GROUP BY
+    ssot__User__dlm.ssot__FullName__c,
+    ssot__User__dlm.ssot__Username__c,
+    CASE
+        WHEN AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c IS NULL THEN &apos;Untagged&apos;
+        ELSE AiAgentGenerativeAiUsage_std__dlm.GenAiGatewayFeatureName__c
+    END,
+    date_trunc(&apos;day&apos;, AiAgentGenerativeAiUsage_std__dlm.Timestamp__c),
+    AiAgentGenerativeAiUsage_std__dlm.IsMeteredIndicator__c,
+    AiAgentGenerativeAiUsage_std__dlm.AiAgentInteractionId__c</expression>
+    <masterLabel>AI Usage By User</masterLabel>
+</MktCalcInsightObjectDef>

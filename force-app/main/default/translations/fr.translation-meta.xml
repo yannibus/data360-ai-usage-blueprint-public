@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label>Gouvernance de l&apos;usage IA</label>
+        <name>AI_Usage_Governance</name>
+    </customApplications>
+    <customLabels>
+        <label>Fonctionnalités actives</label>
+        <name>AI_Cockpit_ActiveFeatures</name>
+    </customLabels>
+    <customLabels>
+        <label>Facturé</label>
+        <name>AI_Cockpit_Billable</name>
+    </customLabels>
+    <customLabels>
+        <label>Tokens par fonctionnalité</label>
+        <name>AI_Cockpit_ByFeature</name>
+    </customLabels>
+    <customLabels>
+        <label>Répartition de la consommation par capacité</label>
+        <name>AI_Cockpit_ByFeatureCaption</name>
+    </customLabels>
+    <customLabels>
+        <label>Dès que vos utilisateurs commenceront à interagir avec Agentforce et les fonctionnalités GenAI, leur consommation s&apos;affichera ici.</label>
+        <name>AI_Cockpit_EmptyMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Aucune donnée disponible pour cette vue</label>
+        <name>AI_Cockpit_EmptySection</name>
+    </customLabels>
+    <customLabels>
+        <label>Aucun usage enregistré pour le moment</label>
+        <name>AI_Cockpit_EmptyTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Impossible de charger vos données d&apos;usage IA depuis Data Cloud. Veuillez réessayer.</label>
+        <name>AI_Cockpit_ErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Une erreur est survenue</label>
+        <name>AI_Cockpit_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Flex Credits estimés</label>
+        <name>AI_Cockpit_EstimatedFc</name>
+    </customLabels>
+    <customLabels>
+        <label>FC</label>
+        <name>AI_Cockpit_FcUnit</name>
+    </customLabels>
+    <customLabels>
+        <label>Inclus</label>
+        <name>AI_Cockpit_Included</name>
+    </customLabels>
+    <customLabels>
+        <label>Interactions</label>
+        <name>AI_Cockpit_Interactions</name>
+    </customLabels>
+    <customLabels>
+        <label>En direct de Data Cloud</label>
+        <name>AI_Cockpit_LiveBadge</name>
+    </customLabels>
+    <customLabels>
+        <label>Chargement des données d&apos;usage IA...</label>
+        <name>AI_Cockpit_LoadingMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>À l&apos;usage</label>
+        <name>AI_Cockpit_Metered</name>
+    </customLabels>
+    <customLabels>
+        <label>Flex Credits estimés uniquement. Digital Wallet reste la source de référence pour la facturation.</label>
+        <name>AI_Cockpit_MeteredFootnote</name>
+    </customLabels>
+    <customLabels>
+        <label>Facturé vs Inclus</label>
+        <name>AI_Cockpit_MeteredSplit</name>
+    </customLabels>
+    <customLabels>
+        <label>Réessayer</label>
+        <name>AI_Cockpit_Retry</name>
+    </customLabels>
+    <customLabels>
+        <label>du total des tokens</label>
+        <name>AI_Cockpit_ShareOfTotal</name>
+    </customLabels>
+    <customLabels>
+        <label>Consommation Agentforce et GenAI, propulsée par Data Cloud</label>
+        <name>AI_Cockpit_Subtitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Cockpit d&apos;usage IA</label>
+        <name>AI_Cockpit_Title</name>
+    </customLabels>
+    <customLabels>
+        <label>tokens</label>
+        <name>AI_Cockpit_TokensUnit</name>
+    </customLabels>
+    <customLabels>
+        <label>Top utilisateurs</label>
+        <name>AI_Cockpit_TopUsers</name>
+    </customLabels>
+    <customLabels>
+        <label>Plus gros consommateurs de tokens</label>
+        <name>AI_Cockpit_TopUsersCaption</name>
+    </customLabels>
+    <customLabels>
+        <label>Total des tokens</label>
+        <name>AI_Cockpit_TotalTokens</name>
+    </customLabels>
+    <customLabels>
+        <label>Évolution de l&apos;usage</label>
+        <name>AI_Cockpit_UsageOverTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Consommation quotidienne de tokens</label>
+        <name>AI_Cockpit_UsageOverTimeCaption</name>
+    </customLabels>
+    <customTabs>
+        <label>Cockpit d&apos;usage IA</label>
+        <name>AI_Usage_Cockpit_Page</name>
+    </customTabs>
+</Translations>

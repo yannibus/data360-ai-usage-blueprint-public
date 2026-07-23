@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>AI Usage Governance</name>
+    <accessType>Public</accessType>
+    <folderShares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>AllInternalUsers</sharedTo>
+        <sharedToType>Organization</sharedToType>
+    </folderShares>
+    <publicFolderAccess>ReadWrite</publicFolderAccess>
+</ReportFolder>

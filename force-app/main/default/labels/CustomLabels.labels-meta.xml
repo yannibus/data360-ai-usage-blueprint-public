@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AI_Cockpit_Title</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cockpit main title</shortDescription>
+        <value>AI Usage Cockpit</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Subtitle</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cockpit subtitle</shortDescription>
+        <value>Agentforce &amp; GenAI consumption, powered by Data Cloud</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_TotalTokens</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KPI card - total tokens</shortDescription>
+        <value>Total Tokens</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_EstimatedFc</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KPI card - estimated flex credits</shortDescription>
+        <value>Estimated Flex Credits</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Interactions</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KPI card - interactions</shortDescription>
+        <value>Interactions</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ActiveFeatures</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KPI card - active features</shortDescription>
+        <value>Active Features</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_UsageOverTime</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section - usage over time</shortDescription>
+        <value>Usage Over Time</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_UsageOverTimeCaption</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section caption - usage over time</shortDescription>
+        <value>Daily token consumption</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ByFeature</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section - by feature</shortDescription>
+        <value>Tokens by Feature</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ByFeatureCaption</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section caption - by feature</shortDescription>
+        <value>Consumption share per capability</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_TopUsers</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section - top users</shortDescription>
+        <value>Top Users</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_TopUsersCaption</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section caption - top users</shortDescription>
+        <value>Highest token consumers</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_MeteredSplit</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section - metered split</shortDescription>
+        <value>Billable vs Included</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Billable</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Metered - billable label</shortDescription>
+        <value>Billable</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Included</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Metered - included label</shortDescription>
+        <value>Included</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Metered</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Metered badge text</shortDescription>
+        <value>Metered</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_MeteredFootnote</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Footnote - estimate disclaimer</shortDescription>
+        <value>Estimated Flex Credits only. Digital Wallet is the billing source of truth.</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_TokensUnit</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unit - tokens</shortDescription>
+        <value>tokens</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_FcUnit</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unit - flex credits abbreviation</shortDescription>
+        <value>FC</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_LoadingMsg</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading state message</shortDescription>
+        <value>Loading AI usage data...</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_EmptyTitle</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state title</shortDescription>
+        <value>No usage recorded yet</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_EmptyMsg</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state message</shortDescription>
+        <value>Once your users start engaging with Agentforce and GenAI features, their consumption will appear here.</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_EmptySection</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state for an individual section</shortDescription>
+        <value>No data for this view yet</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ErrorTitle</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error state title</shortDescription>
+        <value>Something went wrong</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ErrorMsg</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error state message</shortDescription>
+        <value>We could not load your AI usage data from Data Cloud. Please try again.</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_Retry</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Retry button</shortDescription>
+        <value>Retry</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_LiveBadge</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Live data badge</shortDescription>
+        <value>Live from Data Cloud</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ShareOfTotal</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Donut center caption</shortDescription>
+        <value>of total tokens</value>
+    </labels>
+</CustomLabels>

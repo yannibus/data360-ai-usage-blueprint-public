@@ -1,0 +1,22 @@
+# Salesforce DX local cache & auth
+.sfdx/
+.sf/
+.localdevserver/
+deploy-options.json
+
+# Logs
+*.log
+
+# Node / tooling
+node_modules/
+coverage/
+.npmrc
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Salesforce package build artifacts
+*.zip
