@@ -65,10 +65,11 @@ The join is **materialized** so it can drive visual, native restitution. Two ind
 ## Quick start
 
 - **Tier 1 (SQL):** open Data Cloud → Query Editor → paste `queries/03-usage-normalized.sql` → run. Names resolve in-query, zero recurring cost.
-- **Tier 2a (LWC cockpit):** `sf project deploy start --target-org <your-org>` → assign the permission set → drop `aiUsageCockpit` on a Lightning page.
-- **Tier 2b (native report/dashboard):** build the Batch Data Transform + custom DMO per `docs/SETUP.md` (clickops), then `sf project deploy start -d force-app/main/default/reports -d force-app/main/default/dashboards --target-org <your-org>` to ship the 3 reports + the "AI Usage — Adoption" dashboard.
+- **Tier 2a (LWC cockpit):** `sf project deploy start --target-org <your-org>` → **(manual)** run/refresh the CI once in Data Cloud → Calculated Insights so it materializes → assign the permission set → drop `aiUsageCockpit` on a Lightning page.
+- **Tier 2b (native report/dashboard):** verify `ssot__User__dlm` and `AiAgentGenerativeAiUsage_std__dlm` have rows, then **(manual)** build the Batch Data Transform + custom DMO per `docs/SETUP.md` (clickops), then `sf project deploy start -d force-app/main/default/reports -d force-app/main/default/dashboards --target-org <your-org>` to ship the 3 reports + the "AI Usage — Adoption" dashboard.
 
-See `docs/SETUP.md` for the full reproduction guide and `docs/PACKAGING.md` for the metadata-vs-clickops breakdown.
+See `docs/SETUP.md` for the full reproduction guide (including recovery steps if a Calculated
+Insight deploy gets stuck) and `docs/PACKAGING.md` for the metadata-vs-clickops breakdown.
 
 ---
 

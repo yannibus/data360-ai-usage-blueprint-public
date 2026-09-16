@@ -69,13 +69,25 @@ Data Kit**, or reproduced by hand from the runbook.
 
 ## 3. Recommended install order
 
-1. **Prerequisites** — Data Cloud provisioned, GenAI usage present, **Data Stream User active**
-   (`docs/SETUP.md` §1).
+Steps marked **(manual)** cannot be scripted — they are clickops in the Data Cloud UI, on every org,
+every time. Everything else is a plain `sf project deploy start`.
+
+1. **(manual) Prerequisites** — Data Cloud provisioned, GenAI usage present, **Data Stream User
+   active** (`docs/SETUP.md` §1.1). Verify both source DMOs actually have rows before going further
+   (`docs/SETUP.md` §1.2) — every downstream step below silently "succeeds" into an empty result if
+   this is skipped.
 2. **Deploy Tier 2a** — `sf project deploy start` (CI + Apex + LWC + labels + FR + app/tab/permset).
-   Run the CI once; assign the permission set.
-3. **(Optional) Tier 2b** — build the transform + custom DMO (clickops), run it, **then** deploy
-   `reports/` + `dashboards/`.
-4. **Tier 1** needs nothing installed — the SQL runs in the Query Editor at any time.
+3. **(manual) Materialize the CI** — run/refresh it once in **Data Cloud → Calculated Insights**
+   before it returns rows (`docs/SETUP.md` §3.2). If the CI doesn't appear there after a deploy (a
+   stuck/orphaned deploy state — see the recovery steps in `docs/SETUP.md` §3.2), delete it and
+   recreate it by hand with the same `expression`; Apex/LWC only care about its API name and fields.
+4. Assign the permission set (`sf org assign permset --name AI_Usage_Cockpit_User`).
+5. **(Optional) Tier 2b:**
+   1. **(manual) Build the Batch Data Transform + custom DMO** in the Data Cloud UI
+      (`docs/tier1-report-dashboard-runbook.md`, prerequisites re-verified in its Step 0).
+   2. **(manual) Run the transform once**, confirm the custom DMO (`AI_Usage_report__dlm`) has rows.
+   3. Deploy `reports/` + `dashboards/` — only **after** the custom DMO exists (see trap below).
+6. **Tier 1** needs nothing installed — the SQL runs in the Query Editor at any time.
 
 Deploying `reports/`+`dashboards/` before the custom DMO exists is the one ordering trap — the
 auto-generated report type won't be there yet.

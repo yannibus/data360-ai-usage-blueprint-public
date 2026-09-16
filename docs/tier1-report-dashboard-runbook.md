@@ -47,6 +47,16 @@ same expression the deployed CI encodes).
 2. Confirm the **User** data stream is active so `ssot__User__dlm` is populated (else names are raw `005…` Ids).
 3. You need the **Data Cloud** permission set license + *Create and Customize Reports* / *Report Builder*.
 4. Confirm `UserId__c` and `ssot__Id__c` are the **same data type** (Text) — a mismatch silently breaks the join.
+5. **Verify both source DMOs actually have rows before opening the transform builder** — an empty
+   source silently produces an empty (but "successfully built") transform, which then looks like a
+   builder bug when it's really just a missing prerequisite:
+   ```bash
+   sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
+     --body '{"sql":"SELECT COUNT(*) FROM ssot__User__dlm"}' --target-org <alias>
+   sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
+     --body '{"sql":"SELECT COUNT(*) FROM AiAgentGenerativeAiUsage_std__dlm"}' --target-org <alias>
+   ```
+   Both must return > 0. If not, fix prereqs 1–2 above (or §1 of `docs/SETUP.md`) before continuing.
 
 ## Step 1 — Create the Batch Data Transform
 

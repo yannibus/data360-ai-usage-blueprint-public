@@ -217,6 +217,23 @@ sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
   --target-org <alias>
 ```
 
+> **Recovery step — CI deployed but not visible in the Data Cloud UI.** In practice, a Calculated
+> Insight deploy can occasionally get stuck in a state where the Metadata API reports success but
+> the Insight never registers on the Data Cloud (CDP) side: it doesn't appear under **Data Cloud →
+> Calculated Insights**, the query above returns "does not exist in data space context", yet any
+> re-deploy of the same file fails with *"The Calculated Insight API name already exists"*. There is
+> no self-service API/CLI fix for this stuck state. **Recovery:** delete the orphaned definition —
+> `sf project delete source --metadata MktCalcInsightObjectDef:AI_Usage_By_User --target-org <alias> --no-prompt`
+> (this also removes the local file; restore it with `git checkout -- force-app/main/default/mktCalcInsightObjectDefs/AI_Usage_By_User.mktCalcInsightObjectDef-meta.xml`
+> if you deleted from the tracked source rather than a scratch copy) — then recreate the CI **by
+> hand** in **Data Cloud → Calculated Insights → New**, pasting the same `expression` from the
+> metadata file. The Apex controller and LWC only depend on the CI's API name (`AI_Usage_By_User__cio`)
+> and its field names, so a hand-rebuilt CI with the same name/fields is a drop-in replacement — no
+> Apex/LWC change needed. Don't retry a plain redeploy in a loop while the CI is stuck: retrying while
+> a previous deploy is still processing (even invisibly) can throw
+> `Cannot update a MktCalcInsightObjectDef when DefinitionStatus is in use` and worsen the block. Wait
+> a few minutes for the CI to actually appear after a deploy before troubleshooting further.
+
 ### 3.3 Grant access + place the component
 
 1. Assign the permission set:
@@ -237,6 +254,19 @@ sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
 
 Recurring transform compute. The **transform + custom DMO are clickops**; the **3 reports + the
 grid dashboard are deployable metadata**.
+
+> **Prerequisite check — verify the source DMOs actually have data before building the transform.**
+> The Batch Data Transform's builder will happily let you add empty DMOs as input; it just produces
+> an empty output DMO, which then makes the reports/dashboard look broken for reasons that have
+> nothing to do with the transform itself. Confirm both are populated first:
+> ```bash
+> sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
+>   --body '{"sql":"SELECT COUNT(*) FROM ssot__User__dlm"}' --target-org <alias>
+> sf api request rest "/services/data/v64.0/ssot/queryv2" --method POST \
+>   --body '{"sql":"SELECT COUNT(*) FROM AiAgentGenerativeAiUsage_std__dlm"}' --target-org <alias>
+> ```
+> If either returns 0: the Data Stream User isn't active yet (§1.1) or there's no Agentforce/GenAI
+> usage yet (§1, prereq 2) — fix that first, the transform build itself has nothing to troubleshoot.
 
 1. Build the **Batch Data Transform → custom DMO** by following the full runbook:
    **`docs/tier1-report-dashboard-runbook.md`** (step-by-step, with every builder gotcha).
