@@ -195,63 +195,8 @@
                     </template>
                 </section>
 
-                <!-- BY FEATURE DONUT -->
+                <!-- TOP USERS (narrowed to make room for the category breakdown below) -->
                 <section class="panel">
-                    <div class="panel__head">
-                        <div>
-                            <h2 class="panel__title">{label.ByFeature}</h2>
-                            <p class="panel__caption">{label.ByFeatureCaption}</p>
-                        </div>
-                    </div>
-                    <template if:true={hasFeatureData}>
-                        <div class="donut-wrap">
-                            <div class="donut-figure">
-                                <svg class="donut" viewBox={donut.viewBox} role="img" aria-label={donut.ariaLabel}>
-                                    <circle
-                                        class="donut-track"
-                                        cx="80"
-                                        cy="80"
-                                        r={donut.trackR}
-                                    ></circle>
-                                    <g class="donut-arcs">
-                                        <template for:each={donut.arcs} for:item="arc">
-                                            <circle
-                                                key={arc.key}
-                                                cx="80"
-                                                cy="80"
-                                                r={arc.r}
-                                                class="donut-arc"
-                                                stroke={arc.color}
-                                                stroke-dasharray={arc.dasharray}
-                                                stroke-dashoffset={arc.dashoffset}
-                                            ></circle>
-                                        </template>
-                                    </g>
-                                </svg>
-                                <div class="donut-center">
-                                    <span class="donut-center__pct">{donut.centerPct}</span>
-                                    <span class="donut-center__cap">{label.ShareOfTotal}</span>
-                                </div>
-                            </div>
-                            <ul class="legend">
-                                <template for:each={donut.legend} for:item="row">
-                                    <li key={row.key} class="legend__row" data-zero={row.isZero}>
-                                        <span class="legend__swatch" style={row.style}></span>
-                                        <span class="legend__name">{row.feature}</span>
-                                        <span class="legend__pct">{row.pctLabel}</span>
-                                        <span class="legend__tokens">{row.tokensLabel}</span>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </template>
-                    <template if:false={hasFeatureData}>
-                        <div class="section-empty">{label.EmptySection}</div>
-                    </template>
-                </section>
-
-                <!-- TOP USERS -->
-                <section class="panel panel--wide">
                     <div class="panel__head">
                         <div>
                             <h2 class="panel__title">{label.TopUsers}</h2>
@@ -282,6 +227,90 @@
                         </ul>
                     </template>
                     <template if:false={hasTopUsers}>
+                        <div class="section-empty">{label.EmptySection}</div>
+                    </template>
+                </section>
+
+                <!-- BY CATEGORY — donut + explicit action/prompt detail table -->
+                <section class="panel panel--wide">
+                    <div class="panel__head">
+                        <div>
+                            <h2 class="panel__title">{label.ByCategory}</h2>
+                            <p class="panel__caption">{label.ByCategoryCaption}</p>
+                        </div>
+                    </div>
+                    <template if:true={hasCategoryData}>
+                        <div class="category-layout">
+                            <div class="donut-wrap donut-wrap--compact">
+                                <div class="donut-figure">
+                                    <svg
+                                        class="donut"
+                                        viewBox={categoryDonut.viewBox}
+                                        role="img"
+                                        aria-label={categoryDonut.ariaLabel}
+                                    >
+                                        <circle
+                                            class="donut-track"
+                                            cx="80"
+                                            cy="80"
+                                            r={categoryDonut.trackR}
+                                        ></circle>
+                                        <g class="donut-arcs">
+                                            <template for:each={categoryDonut.arcs} for:item="arc">
+                                                <circle
+                                                    key={arc.key}
+                                                    cx="80"
+                                                    cy="80"
+                                                    r={arc.r}
+                                                    class="donut-arc"
+                                                    stroke={arc.color}
+                                                    stroke-dasharray={arc.dasharray}
+                                                    stroke-dashoffset={arc.dashoffset}
+                                                ></circle>
+                                            </template>
+                                        </g>
+                                    </svg>
+                                    <div class="donut-center">
+                                        <span class="donut-center__pct">{categoryDonut.centerPct}</span>
+                                        <span class="donut-center__cap">{label.ShareOfTotal}</span>
+                                    </div>
+                                </div>
+                                <ul class="legend">
+                                    <template for:each={categoryDonut.legend} for:item="row">
+                                        <li key={row.key} class="legend__row" data-zero={row.isZero}>
+                                            <span class="legend__swatch" style={row.style}></span>
+                                            <span class="legend__name">{row.feature}</span>
+                                            <span class="legend__pct">{row.pctLabel}</span>
+                                            <span class="legend__tokens">{row.tokensLabel}</span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                            <div class="category-table-wrap">
+                                <table class="category-table">
+                                    <thead>
+                                        <tr>
+                                            <th>{label.ColCategory}</th>
+                                            <th>{label.ColAction}</th>
+                                            <th class="category-table__num">{label.ColCalls}</th>
+                                            <th class="category-table__num">{label.ColTokens}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={categoryDetailRows} for:item="row">
+                                            <tr key={row.key}>
+                                                <td>{row.category}</td>
+                                                <td class="category-table__label">{row.label}</td>
+                                                <td class="category-table__num">{row.nbLabel}</td>
+                                                <td class="category-table__num">{row.tokensLabel}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={hasCategoryData}>
                         <div class="section-empty">{label.EmptySection}</div>
                     </template>
                 </section>

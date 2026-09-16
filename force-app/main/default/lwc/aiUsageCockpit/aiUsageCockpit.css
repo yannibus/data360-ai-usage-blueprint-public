@@ -519,6 +519,73 @@
     text-align: right;
 }
 
+/* ---------- By-category donut + detail table ---------- */
+.category-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.donut-wrap--compact {
+    flex: 0 0 260px;
+}
+
+/* Category names ("Agentforce Action", "In-Flow Feature"...) run longer than
+   the old per-feature labels — wrap instead of ellipsis-truncating them. */
+.donut-wrap--compact .legend__name {
+    white-space: normal;
+    line-height: 1.25;
+}
+
+.category-table-wrap {
+    flex: 1 1 320px;
+    min-width: 260px;
+    overflow-x: auto;
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.category-table thead th {
+    text-align: left;
+    padding: 0 10px 10px 0;
+    font-size: 0.7rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+    border-bottom: 1px solid var(--card-border);
+    white-space: nowrap;
+}
+
+.category-table tbody td {
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--ink-soft);
+    vertical-align: top;
+}
+
+.category-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.category-table__label {
+    color: var(--ink);
+    font-weight: 550;
+    max-width: 260px;
+    overflow-wrap: anywhere;
+}
+
+.category-table__num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
 /* ---------- Top-user bars ---------- */
 .bars {
     list-style: none;

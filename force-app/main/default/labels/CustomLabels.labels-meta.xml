@@ -81,6 +81,54 @@
         <value>Consumption share per capability</value>
     </labels>
     <labels>
+        <fullName>AI_Cockpit_ByCategory</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section - by category</shortDescription>
+        <value>Tokens by Action Type</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ByCategoryCaption</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section caption - by category</shortDescription>
+        <value>Coworker search, Agentforce actions &amp; in-flow features</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ColCategory</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category detail table - category column</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ColAction</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category detail table - action/label column</shortDescription>
+        <value>Action / Prompt</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ColCalls</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category detail table - call count column</shortDescription>
+        <value>Calls</value>
+    </labels>
+    <labels>
+        <fullName>AI_Cockpit_ColTokens</fullName>
+        <categories>AI Usage Cockpit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category detail table - tokens column</shortDescription>
+        <value>Tokens</value>
+    </labels>
+    <labels>
         <fullName>AI_Cockpit_TopUsers</fullName>
         <categories>AI Usage Cockpit</categories>
         <language>en_US</language>

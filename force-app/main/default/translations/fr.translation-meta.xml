@@ -21,6 +21,30 @@
         <name>AI_Cockpit_ByFeatureCaption</name>
     </customLabels>
     <customLabels>
+        <label>Tokens par type d&apos;action</label>
+        <name>AI_Cockpit_ByCategory</name>
+    </customLabels>
+    <customLabels>
+        <label>Recherche Coworker, actions Agentforce &amp; fonctionnalités intégrées</label>
+        <name>AI_Cockpit_ByCategoryCaption</name>
+    </customLabels>
+    <customLabels>
+        <label>Catégorie</label>
+        <name>AI_Cockpit_ColCategory</name>
+    </customLabels>
+    <customLabels>
+        <label>Action / Prompt</label>
+        <name>AI_Cockpit_ColAction</name>
+    </customLabels>
+    <customLabels>
+        <label>Appels</label>
+        <name>AI_Cockpit_ColCalls</name>
+    </customLabels>
+    <customLabels>
+        <label>Tokens</label>
+        <name>AI_Cockpit_ColTokens</name>
+    </customLabels>
+    <customLabels>
         <label>Dès que vos utilisateurs commenceront à interagir avec Agentforce et les fonctionnalités GenAI, leur consommation s&apos;affichera ici.</label>
         <name>AI_Cockpit_EmptyMsg</name>
     </customLabels>

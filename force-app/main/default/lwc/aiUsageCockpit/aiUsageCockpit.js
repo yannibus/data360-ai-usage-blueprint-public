@@ -11,8 +11,12 @@ import Interactions from '@salesforce/label/c.AI_Cockpit_Interactions';
 import ActiveFeatures from '@salesforce/label/c.AI_Cockpit_ActiveFeatures';
 import UsageOverTime from '@salesforce/label/c.AI_Cockpit_UsageOverTime';
 import UsageOverTimeCaption from '@salesforce/label/c.AI_Cockpit_UsageOverTimeCaption';
-import ByFeature from '@salesforce/label/c.AI_Cockpit_ByFeature';
-import ByFeatureCaption from '@salesforce/label/c.AI_Cockpit_ByFeatureCaption';
+import ByCategory from '@salesforce/label/c.AI_Cockpit_ByCategory';
+import ByCategoryCaption from '@salesforce/label/c.AI_Cockpit_ByCategoryCaption';
+import ColCategory from '@salesforce/label/c.AI_Cockpit_ColCategory';
+import ColAction from '@salesforce/label/c.AI_Cockpit_ColAction';
+import ColCalls from '@salesforce/label/c.AI_Cockpit_ColCalls';
+import ColTokens from '@salesforce/label/c.AI_Cockpit_ColTokens';
 import TopUsers from '@salesforce/label/c.AI_Cockpit_TopUsers';
 import TopUsersCaption from '@salesforce/label/c.AI_Cockpit_TopUsersCaption';
 import MeteredSplit from '@salesforce/label/c.AI_Cockpit_MeteredSplit';
@@ -58,8 +62,12 @@ export default class AiUsageCockpit extends LightningElement {
         ActiveFeatures,
         UsageOverTime,
         UsageOverTimeCaption,
-        ByFeature,
-        ByFeatureCaption,
+        ByCategory,
+        ByCategoryCaption,
+        ColCategory,
+        ColAction,
+        ColCalls,
+        ColTokens,
         TopUsers,
         TopUsersCaption,
         MeteredSplit,
@@ -285,66 +293,62 @@ export default class AiUsageCockpit extends LightningElement {
     }
 
     // ---------------------------------------------------------------------
-    // By feature — SVG donut using stroke-dasharray arcs
+    // By category — same donut geometry as "by feature", grouped one level
+    // finer (Coworker search / Agentforce action / in-flow feature), plus a
+    // detail table listing the explicit action/prompt label behind each slice.
     // ---------------------------------------------------------------------
 
-    get hasFeatureData() {
-        return this.featureSlices.length > 0;
+    get categoryRows() {
+        return (this.data && this.data.categoryBreakdown) || [];
     }
 
-    get featureSlices() {
-        return (this.data && this.data.byFeature) || [];
+    get hasCategoryData() {
+        return this.categoryRows.length > 0;
     }
 
-    /** Donut geometry + legend rows. Handles the 0-token slice gracefully. */
-    get donut() {
-        const slices = this.featureSlices;
-        const total = slices.reduce((sum, s) => sum + this._num(s.tokens), 0);
+    /** Donut geometry, built by summing the detail rows per category. */
+    get categoryDonut() {
+        const rows = this.categoryRows;
+        const totalsByCategory = new Map();
+        rows.forEach((r) => {
+            const key = r.category || '—';
+            totalsByCategory.set(key, (totalsByCategory.get(key) || 0) + this._num(r.tokens));
+        });
+        const slices = Array.from(totalsByCategory.entries())
+            .map(([category, tokens]) => ({ category, tokens }))
+            .sort((a, b) => b.tokens - a.tokens);
 
-        // Guard: if every slice is zero we still render a full neutral ring so the
-        // donut never collapses into an invisible arc.
+        const total = slices.reduce((sum, s) => sum + s.tokens, 0);
         const safeTotal = total > 0 ? total : 1;
 
         let offset = 0;
         const arcs = [];
         const legend = [];
         slices.forEach((s, i) => {
-            const value = this._num(s.tokens);
-            const pct = (value / safeTotal) * 100;
+            const pct = (s.tokens / safeTotal) * 100;
             const color = SLICE_COLORS[i % SLICE_COLORS.length];
-            const dash = (value / safeTotal) * DONUT_C;
+            const dash = (s.tokens / safeTotal) * DONUT_C;
             const gap = DONUT_C - dash;
 
-            // Only emit an arc for non-zero slices (a 0% arc would be invisible
-            // and can leave a rendering sliver on some engines).
-            if (value > 0) {
-                arcs.push({
-                    key: `arc-${i}`,
-                    color,
-                    dasharray: `${dash} ${gap}`,
-                    dashoffset: -offset,
-                    r: DONUT_R
-                });
+            if (s.tokens > 0) {
+                arcs.push({ key: `cat-arc-${i}`, color, dasharray: `${dash} ${gap}`, dashoffset: -offset, r: DONUT_R });
                 offset += dash;
             }
 
             legend.push({
-                key: `leg-${i}`,
-                feature: s.feature || '—',
+                key: `cat-leg-${i}`,
+                feature: s.category,
                 color,
-                tokensLabel: this._formatInt(value),
+                tokensLabel: this._formatInt(s.tokens),
                 pctLabel: `${this._round(pct, 1)}%`,
-                isZero: value === 0,
+                isZero: s.tokens === 0,
                 style: `--slice-color:${color};`
             });
         });
 
-        // Center figure = the dominant slice share. Compute via Math.max rather
-        // than trusting index 0, so the headline is correct even if byFeature
-        // ever arrives unsorted.
-        const top = slices.length ? Math.max(...slices.map((s) => this._num(s.tokens))) : 0;
+        const top = slices.length ? slices[0].tokens : 0;
         const topPct = total > 0 ? this._round((top / total) * 100, 0) : 0;
-        const ariaLabel = `${this.label.ByFeature}: ${slices.length} feature(s), largest share ${topPct}% of ${this._formatInt(total)} ${this.label.TokensUnit}.`;
+        const ariaLabel = `${this.label.ByCategory}: ${slices.length} categories, largest share ${topPct}% of ${this._formatInt(total)} ${this.label.TokensUnit}.`;
 
         return {
             arcs,
@@ -355,6 +359,17 @@ export default class AiUsageCockpit extends LightningElement {
             viewBox: '0 0 160 160',
             ariaLabel
         };
+    }
+
+    /** Detail table rows: one per explicit action/prompt label, richest first. */
+    get categoryDetailRows() {
+        return this.categoryRows.map((r, i) => ({
+            key: `cat-row-${i}`,
+            category: r.category || '—',
+            label: r.actionLabel || '—',
+            nbLabel: this._formatInt(r.nbActions),
+            tokensLabel: this._formatInt(r.tokens)
+        }));
     }
 
     // ---------------------------------------------------------------------
