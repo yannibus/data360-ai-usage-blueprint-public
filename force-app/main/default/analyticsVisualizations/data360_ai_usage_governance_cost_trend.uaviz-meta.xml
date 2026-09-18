@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticsVisualization xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <analyticsWorkspace>data360_ai_usage_governance</analyticsWorkspace>
+    <dataSource>data360_ai_usage_governance</dataSource>
+    <description>Auto-generated: Estimated Flex Credits — Daily Trend</description>
+    <fields>
+        <displayCategory>Continuous</displayCategory>
+        <fieldKey>F1</fieldKey>
+        <fieldName>Estimated_Flex_Credits_clc</fieldName>
+        <function>UserAgg</function>
+        <label>Estimated Flex Credits</label>
+        <role>Measure</role>
+        <type>Field</type>
+    </fields>
+    <fields>
+        <displayCategory>Continuous</displayCategory>
+        <fieldKey>F2</fieldKey>
+        <fieldName>Usage_Date_clc</fieldName>
+        <label>Usage Date</label>
+        <role>Dimension</role>
+        <type>Field</type>
+    </fields>
+    <masterLabel>Estimated Flex Credits — Daily Trend</masterLabel>
+    <version>66.0</version>
+    <views>
+        <fullName>data360_ai_usage_governance_cost_trend_Estimated_Flex_Credits_Daily_Trend_Vi</fullName>
+        <isOriginal>true</isOriginal>
+        <masterLabel>Estimated Flex Credits — Daily Trend View</masterLabel>
+        <version>66.0</version>
+        <viewSpecification>{&quot;filters&quot;:[],&quot;sortOrders&quot;:{&quot;fields&quot;:{},&quot;rows&quot;:[],&quot;columns&quot;:[]}}</viewSpecification>
+    </views>
+    <visualSpecification>eyJtb2RlIjoiVmlzdWFsaXphdGlvbiIsInJvd3MiOlsiRjEiXSwiY29sdW1ucyI6WyJGMiJdLCJtYXJrcyI6eyJBTEwiOnsidHlwZSI6IkFyZWEiLCJpc0F1dG9tYXRpYyI6dHJ1ZSwic3RhY2siOnsiaXNBdXRvbWF0aWMiOmZhbHNlLCJpc1N0YWNrZWQiOmZhbHNlfSwiZW5jb2RpbmdzIjpbXX19LCJzdHlsZSI6eyJmaXQiOiJTdGFuZGFyZCIsInRpdGxlIjp7ImlzVmlzaWJsZSI6dHJ1ZX0sInNob3dEYXRhUGxhY2Vob2xkZXIiOmZhbHNlLCJheGlzIjp7IkYxIjp7ImlzVmlzaWJsZSI6dHJ1ZSwicmFuZ2UiOnsidHlwZSI6IkF1dG8iLCJpbmNsdWRlWmVybyI6dHJ1ZX0sInRpdGxlVGV4dCI6IkVzdGltYXRlZCBGbGV4IENyZWRpdHMiLCJzY2FsZSI6eyJmb3JtYXQiOnsibnVtYmVyRm9ybWF0SW5mbyI6eyJ0eXBlIjoiTnVtYmVyU2hvcnQiLCJkZWNpbWFsUGxhY2VzIjowLCJuZWdhdGl2ZVZhbHVlc0Zvcm1hdCI6IkF1dG8iLCJkaXNwbGF5VW5pdHMiOiJBdXRvIiwicHJlZml4IjoiIiwic3VmZml4IjoiIiwiaW5jbHVkZVRob3VzYW5kU2VwYXJhdG9yIjp0cnVlfX19LCJ0aWNrcyI6eyJtYWpvclRpY2tzIjp7InR5cGUiOiJBdXRvIn0sIm1pbm9yVGlja3MiOnsidHlwZSI6IkF1dG8ifX0sImlzWmVyb0xpbmVWaXNpYmxlIjp0cnVlfSwiRjIiOnsiaXNWaXNpYmxlIjp0cnVlLCJyYW5nZSI6eyJ0eXBlIjoiQXV0byIsImluY2x1ZGVaZXJvIjpmYWxzZX0sInNjYWxlIjp7ImZvcm1hdCI6eyJkYXRlVGVtcGxhdGUiOiIifX0sInRpY2tzIjp7Im1ham9yVGlja3MiOnsidHlwZSI6IkF1dG8ifSwibWlub3JUaWNrcyI6eyJ0eXBlIjoiQXV0byJ9fSwiaXNaZXJvTGluZVZpc2libGUiOmZhbHNlfX0sInBhbmVzIjp7IkYxIjp7ImRlZmF1bHRzIjp7ImZvcm1hdCI6eyJudW1iZXJGb3JtYXRJbmZvIjp7InR5cGUiOiJOdW1iZXIiLCJkZWNpbWFsUGxhY2VzIjowLCJuZWdhdGl2ZVZhbHVlc0Zvcm1hdCI6IkF1dG8iLCJkaXNwbGF5VW5pdHMiOiJBdXRvIiwicHJlZml4IjoiIiwic3VmZml4IjoiIiwiaW5jbHVkZVRob3VzYW5kU2VwYXJhdG9yIjp0cnVlfX19fX0sIm1hcmtzIjp7IkFMTCI6eyJsYWJlbCI6eyJjYW5PdmVybGFwTGFiZWxzIjpmYWxzZSwic2hvd01hcmtMYWJlbHMiOmZhbHNlLCJtYXJrc1RvTGFiZWwiOnsidHlwZSI6IkFsbCJ9fSwiY29sb3IiOnsiY29sb3IiOiIjMDE3NkQzIn0sInJhbmdlIjp7InJldmVyc2UiOmZhbHNlfSwic2l6ZSI6eyJ0eXBlIjoiUGl4ZWwiLCJpc0F1dG9tYXRpYyI6dHJ1ZSwidmFsdWUiOjJ9LCJpc0F1dG9tYXRpY1NpemUiOnRydWUsImlzU3RhY2tpbmdBeGlzQ2VudGVyZWQiOmZhbHNlfX0sImZpZWxkTGFiZWxzIjp7InJvd3MiOnsic2hvd0xhYmVscyI6dHJ1ZSwic2hvd0RpdmlkZXJMaW5lIjpmYWxzZX0sImNvbHVtbnMiOnsic2hvd0xhYmVscyI6dHJ1ZSwic2hvd0RpdmlkZXJMaW5lIjpmYWxzZX19LCJyZWZlcmVuY2VMaW5lcyI6e30sImZvbnRzIjp7ImFjdGlvbmFibGVIZWFkZXJzIjp7InNpemUiOjEzLCJjb2xvciI6IiMwMjUwRDkifSwiaGVhZGVycyI6eyJzaXplIjoxMywiY29sb3IiOiIjMkUyRTJFIn0sImZpZWxkTGFiZWxzIjp7InNpemUiOjEzLCJjb2xvciI6IiMyRTJFMkUifSwibWFya3MiOnsic2l6ZSI6MTMsImNvbG9yIjoiIzJFMkUyRSJ9LCJtYXJrTGFiZWxzIjp7InNpemUiOjEzLCJjb2xvciI6IiMyRTJFMkUifSwibGVnZW5kTGFiZWxzIjp7InNpemUiOjEzLCJjb2xvciI6IiMyRTJFMkUifSwiYXhpc1RpY2tMYWJlbHMiOnsic2l6ZSI6MTMsImNvbG9yIjoiIzJFMkUyRSJ9fSwic2hhZGluZyI6eyJiYWNrZ3JvdW5kQ29sb3IiOiIjRkZGRkZGIiwiYmFuZGluZyI6eyJyb3dzIjp7ImNvbG9yIjoiI0ZGRkZGRiJ9fX0sImxpbmVzIjp7ImZpZWxkTGFiZWxEaXZpZGVyTGluZSI6eyJjb2xvciI6IiNDOUM5QzkifSwic2VwYXJhdG9yTGluZSI6eyJjb2xvciI6IiNDOUM5QzkifSwiYXhpc0xpbmUiOnsiY29sb3IiOiIjQzlDOUM5In0sInplcm9MaW5lIjp7ImNvbG9yIjoiI0M5QzlDOSJ9fSwiYWxsSGVhZGVycyI6eyJmaWVsZHMiOnt9LCJyb3dzIjp7Im1lcmdlUmVwZWF0ZWRDZWxscyI6dHJ1ZSwic2hvd0luZGV4IjpmYWxzZX0sImNvbHVtbnMiOnsibWVyZ2VSZXBlYXRlZENlbGxzIjp0cnVlLCJzaG93SW5kZXgiOmZhbHNlfX19LCJsZWdlbmRzIjp7fSwibWVhc3VyZVZhbHVlcyI6W10sInJlZmVyZW5jZUxpbmVzIjp7fSwiZm9yZWNhc3RzIjp7fX0=</visualSpecification>
+    <workspaceAssetRelationships>
+        <asset xsi:nil="true"/>
+        <assetType>AnalyticsVisualization</assetType>
+        <assetUsageType>Created</assetUsageType>
+        <workspace>data360_ai_usage_governance</workspace>
+    </workspaceAssetRelationships>
+</AnalyticsVisualization>

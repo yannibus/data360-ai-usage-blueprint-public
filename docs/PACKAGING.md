@@ -1,9 +1,9 @@
 # PACKAGING — what ships as metadata vs what is clickops
 
-This blueprint is **mostly deployable `force-app` metadata**, with two Data Cloud artefacts that
-can only be reproduced by hand (or shipped in a Data Kit). This file is the honest inventory:
-what redeploys with `sf project deploy start`, what a human must build in the Data Cloud UI, and
-why.
+This blueprint is **mostly deployable `force-app` metadata**, with a small number of Data Cloud
+artefacts that can only be reproduced by hand, by script, or shipped in a Data Kit. This file is
+the honest inventory: what redeploys with `sf project deploy start`, what a human (or a script)
+must build directly against Data Cloud, and why.
 
 ---
 
@@ -29,6 +29,11 @@ prerequisites in `docs/SETUP.md`.
 | `AI_Usage_Governance` (reports folder) | `ReportFolder` | 2b | |
 | `AI_Usage_Adoption` | `Dashboard` | 2b | Grid dashboard: 3 KPI tiles + line + 2 bars. |
 | `AI_Usage_Governance` (dashboards folder) | `DashboardFolder` | 2b | |
+| `data360_ai_usage_governance` | `AnalyticsWorkspace` | 3 | Tableau Next workspace. References the Semantic Data Model by API name — see Tier 3 caveat below. |
+| `data360_ai_usage_governance_cost_trend` | `AnalyticsVisualization` | 3 | Daily Estimated Flex Credits trend, Area mark. |
+| `data360_ai_usage_governance_cost_feature` | `AnalyticsVisualization` | 3 | Estimated Flex Credits by Feature, stacked by Billable. |
+| `data360_ai_usage_governance_detail_table` | `AnalyticsVisualization` | 3 | User × Feature detail table. |
+| `data360_ai_usage_governance_dashboard` | `AnalyticsDashboard` | 3 | "AI Usage & Cost — Executive View" grid dashboard. |
 
 **Tier 2b caveat:** the 3 reports + dashboard reference the report type
 `CustomEntity$AI_Usage_Report__dlm`, which the platform **auto-generates only after** the custom
@@ -46,6 +51,14 @@ CI, a few-FC difference vs the SQL) and no `COUNT(DISTINCT)` as a measure (hence
 grain rather than a distinct count). The new-org grain was reasoned from live PATCH rejections on
 the reference org; validate on the first fresh deploy.
 
+**Tier 3 caveat:** the `AnalyticsWorkspace`, `AnalyticsVisualization` and `AnalyticsDashboard`
+records reference the Tableau Next **Semantic Data Model** (`data360_ai_usage_governance`) by
+API name. That Semantic Data Model has **no metadata type at all** (checked the full 440-type
+registry — see §2) — it must exist on the target org *before* this metadata deploys, or the
+deploy targets a semantic model that isn't there yet. See `docs/tableau-next-executive-view.md`
+for the two reproduction paths (build-from-zero script vs. deploy-metadata-only once the model
+exists).
+
 Also under `queries/` (not metadata, but part of the package): the 3 Tier-1 SQL files
 (`01`, `02`, `03`) — copy/paste into the Data Cloud Query Editor.
 
@@ -61,6 +74,7 @@ Data Kit**, or reproduced by hand from the runbook.
 | **Data Stream User** activation | prereq | Connector config, org-specific, not source-trackable | `docs/SETUP.md` §1.1 (check the `User` object on the CRM data stream) |
 | **Batch Data Transform** (`AiAgentGenerativeAiUsage` × `ssot__User__dlm`) | 2b | Data Cloud transform — Data-Kit-only | `docs/tier1-report-dashboard-runbook.md` |
 | **Custom DMO** `AI_Usage_report__dlm` (transform output; lowercase `report`) | 2b | Transform-type DMO, created from the Output node | same runbook |
+| **Semantic Data Model** `data360_ai_usage_governance` | 3 | No metadata type in this org's Metadata API registry (confirmed: no `AnalyticsSemanticModel` or equivalent among 440 types) | Run `tableau_next/data360_ai_usage_governance_next_demo.py` — builds it via the Data Cloud Semantics REST API |
 
 > The **CI materialization run** and the **transform schedule** are runtime actions, not
 > artefacts — trigger them post-deploy from the Data Cloud UI (or their schedule).
@@ -88,9 +102,18 @@ every time. Everything else is a plain `sf project deploy start`.
    2. **(manual) Run the transform once**, confirm the custom DMO (`AI_Usage_report__dlm`) has rows.
    3. Deploy `reports/` + `dashboards/` — only **after** the custom DMO exists (see trap below).
 6. **Tier 1** needs nothing installed — the SQL runs in the Query Editor at any time.
+7. **(Optional) Tier 3** — Tableau Next executive view, independent of Tier 2a/2b:
+   1. **(script, not manual) Build the Semantic Data Model + workspace/visualizations/dashboard**
+      in one pass: `python3 tableau_next/data360_ai_usage_governance_next_demo.py`. This is the
+      only Tier 3 step that isn't a plain `sf project deploy start`, because the Semantic Data
+      Model has no metadata type (§2).
+   2. If the Semantic Data Model already exists on the target org (e.g. you only need to
+      redeploy the visuals), skip the script and deploy the metadata layer directly:
+      `sf project deploy start -d force-app/main/default/analyticsWorkspaces -d force-app/main/default/analyticsVisualizations -d force-app/main/default/analyticsDashboards`.
 
-Deploying `reports/`+`dashboards/` before the custom DMO exists is the one ordering trap — the
-auto-generated report type won't be there yet.
+Deploying `reports/`+`dashboards/` before the custom DMO exists is one ordering trap (Tier 2b);
+deploying the Tier 3 `analytics*` metadata before the Semantic Data Model exists is the
+equivalent trap for Tier 3.
 
 ---
 

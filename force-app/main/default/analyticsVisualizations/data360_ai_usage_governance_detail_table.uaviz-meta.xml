@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticsVisualization xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <analyticsWorkspace>data360_ai_usage_governance</analyticsWorkspace>
+    <dataSource>data360_ai_usage_governance</dataSource>
+    <description>Auto-generated: Usage Detail — User × Feature</description>
+    <fields>
+        <displayCategory>Discrete</displayCategory>
+        <fieldKey>F1</fieldKey>
+        <fieldName>Feature_clc</fieldName>
+        <label>Feature</label>
+        <role>Dimension</role>
+        <type>Field</type>
+    </fields>
+    <fields>
+        <displayCategory>Discrete</displayCategory>
+        <fieldKey>F2</fieldKey>
+        <fieldName>User_Name</fieldName>
+        <label>User Name</label>
+        <objectName>User1</objectName>
+        <role>Dimension</role>
+        <type>Field</type>
+    </fields>
+    <fields>
+        <displayCategory>Discrete</displayCategory>
+        <fieldKey>F3</fieldKey>
+        <fieldName>Total_Tokens_clc</fieldName>
+        <function>UserAgg</function>
+        <label>Total Tokens</label>
+        <role>Measure</role>
+        <type>Field</type>
+    </fields>
+    <fields>
+        <displayCategory>Discrete</displayCategory>
+        <fieldKey>F4</fieldKey>
+        <fieldName>Estimated_Flex_Credits_clc</fieldName>
+        <function>UserAgg</function>
+        <label>Estimated Flex Credits</label>
+        <role>Measure</role>
+        <type>Field</type>
+    </fields>
+    <masterLabel>Usage Detail — User × Feature</masterLabel>
+    <version>66.0</version>
+    <views>
+        <fullName>data360_ai_usage_governance_detail_table_Usage_Detail_User_Feature_View</fullName>
+        <isOriginal>true</isOriginal>
+        <masterLabel>Usage Detail — User × Feature View</masterLabel>
+        <version>66.0</version>
+        <viewSpecification>{&quot;filters&quot;:[],&quot;sortOrders&quot;:{&quot;fields&quot;:{},&quot;rows&quot;:[],&quot;columns&quot;:[]}}</viewSpecification>
+    </views>
+    <visualSpecification>eyJtb2RlIjoiVGFibGUiLCJyb3dzIjpbIkYyIiwiRjEiLCJGMyIsIkY0Il0sImNvbHVtbnMiOltdLCJtYXJrcyI6eyJBTEwiOnsidHlwZSI6IlRleHQiLCJpc0F1dG9tYXRpYyI6ZmFsc2UsInN0YWNrIjp7ImlzQXV0b21hdGljIjpmYWxzZSwiaXNTdGFja2VkIjpmYWxzZX0sImVuY29kaW5ncyI6W119LCJGMSI6eyJ0eXBlIjoiVGV4dCIsImlzQXV0b21hdGljIjpmYWxzZSwic3RhY2siOnsiaXNBdXRvbWF0aWMiOmZhbHNlLCJpc1N0YWNrZWQiOmZhbHNlfSwiZW5jb2RpbmdzIjpbXX0sIkYyIjp7InR5cGUiOiJUZXh0IiwiaXNBdXRvbWF0aWMiOmZhbHNlLCJzdGFjayI6eyJpc0F1dG9tYXRpYyI6ZmFsc2UsImlzU3RhY2tlZCI6ZmFsc2V9LCJlbmNvZGluZ3MiOltdfSwiRjMiOnsidHlwZSI6IlRleHQiLCJpc0F1dG9tYXRpYyI6ZmFsc2UsInN0YWNrIjp7ImlzQXV0b21hdGljIjpmYWxzZSwiaXNTdGFja2VkIjpmYWxzZX0sImVuY29kaW5ncyI6W119LCJGNCI6eyJ0eXBlIjoiVGV4dCIsImlzQXV0b21hdGljIjpmYWxzZSwic3RhY2siOnsiaXNBdXRvbWF0aWMiOmZhbHNlLCJpc1N0YWNrZWQiOmZhbHNlfSwiZW5jb2RpbmdzIjpbXX19LCJzdHlsZSI6eyJmaXQiOiJSb3dIZWFkZXJzV2lkdGgiLCJ0aXRsZSI6eyJpc1Zpc2libGUiOnRydWV9LCJzaG93RGF0YVBsYWNlaG9sZGVyIjpmYWxzZSwiYXhpcyI6e30sInBhbmVzIjp7IkYzIjp7ImRlZmF1bHRzIjp7ImZvcm1hdCI6eyJudW1iZXJGb3JtYXRJbmZvIjp7InR5cGUiOiJOdW1iZXIiLCJkZWNpbWFsUGxhY2VzIjowLCJuZWdhdGl2ZVZhbHVlc0Zvcm1hdCI6IkF1dG8iLCJkaXNwbGF5VW5pdHMiOiJBdXRvIiwicHJlZml4IjoiIiwic3VmZml4IjoiIiwiaW5jbHVkZVRob3VzYW5kU2VwYXJhdG9yIjp0cnVlfX19fSwiRjQiOnsiZGVmYXVsdHMiOnsiZm9ybWF0Ijp7Im51bWJlckZvcm1hdEluZm8iOnsidHlwZSI6Ik51bWJlciIsImRlY2ltYWxQbGFjZXMiOjAsIm5lZ2F0aXZlVmFsdWVzRm9ybWF0IjoiQXV0byIsImRpc3BsYXlVbml0cyI6IkF1dG8iLCJwcmVmaXgiOiIiLCJzdWZmaXgiOiIiLCJpbmNsdWRlVGhvdXNhbmRTZXBhcmF0b3IiOnRydWV9fX19fSwibWFya3MiOnsiQUxMIjp7ImxhYmVsIjp7ImNhbk92ZXJsYXBMYWJlbHMiOmZhbHNlLCJzaG93TWFya0xhYmVscyI6ZmFsc2UsIm1hcmtzVG9MYWJlbCI6eyJ0eXBlIjoiQWxsIn19LCJjb2xvciI6eyJjb2xvciI6IiJ9LCJyYW5nZSI6eyJyZXZlcnNlIjpmYWxzZX0sInNpemUiOnsidHlwZSI6IlBlcmNlbnRhZ2UiLCJpc0F1dG9tYXRpYyI6dHJ1ZSwidmFsdWUiOjc1fSwiaXNBdXRvbWF0aWNTaXplIjp0cnVlLCJpc1N0YWNraW5nQXhpc0NlbnRlcmVkIjpmYWxzZX19LCJmaWVsZExhYmVscyI6eyJyb3dzIjp7InNob3dMYWJlbHMiOnRydWUsInNob3dEaXZpZGVyTGluZSI6ZmFsc2V9LCJjb2x1bW5zIjp7InNob3dMYWJlbHMiOnRydWUsInNob3dEaXZpZGVyTGluZSI6ZmFsc2V9fSwicmVmZXJlbmNlTGluZXMiOnt9LCJmb250cyI6eyJhY3Rpb25hYmxlSGVhZGVycyI6eyJzaXplIjoxMywiY29sb3IiOiIjMDI1MEQ5In0sImhlYWRlcnMiOnsic2l6ZSI6MTMsImNvbG9yIjoiIzJFMkUyRSJ9LCJmaWVsZExhYmVscyI6eyJzaXplIjoxMywiY29sb3IiOiIjMkUyRTJFIn0sIm1hcmtzIjp7InNpemUiOjEzLCJjb2xvciI6IiMyRTJFMkUifSwibWFya0xhYmVscyI6eyJzaXplIjoxMywiY29sb3IiOiIjMkUyRTJFIn0sImxlZ2VuZExhYmVscyI6eyJzaXplIjoxMywiY29sb3IiOiIjMkUyRTJFIn0sImF4aXNUaWNrTGFiZWxzIjp7InNpemUiOjEzLCJjb2xvciI6IiMyRTJFMkUifX0sInNoYWRpbmciOnsiYmFja2dyb3VuZENvbG9yIjoiI0ZGRkZGRiIsImJhbmRpbmciOnsicm93cyI6eyJjb2xvciI6IiNGRkZGRkYifX19LCJsaW5lcyI6eyJmaWVsZExhYmVsRGl2aWRlckxpbmUiOnsiY29sb3IiOiIjQzlDOUM5In0sInNlcGFyYXRvckxpbmUiOnsiY29sb3IiOiIjQzlDOUM5In0sImF4aXNMaW5lIjp7ImNvbG9yIjoiI0M5QzlDOSJ9LCJ6ZXJvTGluZSI6eyJjb2xvciI6IiNDOUM5QzkifX0sImFsbEhlYWRlcnMiOnsiZmllbGRzIjp7IkYxIjp7ImlzVmlzaWJsZSI6dHJ1ZSwiaGlkZGVuVmFsdWVzIjpbXSwic2hvd01pc3NpbmdWYWx1ZXMiOmZhbHNlfSwiRjIiOnsiaXNWaXNpYmxlIjp0cnVlLCJoaWRkZW5WYWx1ZXMiOltdLCJzaG93TWlzc2luZ1ZhbHVlcyI6ZmFsc2V9LCJGMyI6eyJpc1Zpc2libGUiOnRydWUsImhpZGRlblZhbHVlcyI6W10sInNob3dNaXNzaW5nVmFsdWVzIjpmYWxzZX0sIkY0Ijp7ImlzVmlzaWJsZSI6dHJ1ZSwiaGlkZGVuVmFsdWVzIjpbXSwic2hvd01pc3NpbmdWYWx1ZXMiOmZhbHNlfX0sInJvd3MiOnsibWVyZ2VSZXBlYXRlZENlbGxzIjpmYWxzZSwic2hvd0luZGV4IjpmYWxzZX0sImNvbHVtbnMiOnsibWVyZ2VSZXBlYXRlZENlbGxzIjpmYWxzZSwic2hvd0luZGV4IjpmYWxzZX19fSwibGVnZW5kcyI6e30sIm1lYXN1cmVWYWx1ZXMiOltdLCJyZWZlcmVuY2VMaW5lcyI6e30sImZvcmVjYXN0cyI6e319</visualSpecification>
+    <workspaceAssetRelationships>
+        <asset xsi:nil="true"/>
+        <assetType>AnalyticsVisualization</assetType>
+        <assetUsageType>Created</assetUsageType>
+        <workspace>data360_ai_usage_governance</workspace>
+    </workspaceAssetRelationships>
+</AnalyticsVisualization>

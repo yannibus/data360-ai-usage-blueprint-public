@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticsWorkspace xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Tier 3 Tableau Next executive view — Data360 AI Usage Governance.</description>
+    <masterLabel>data360_ai_usage_governance</masterLabel>
+    <workspaceAssetRelationships>
+        <asset>data360_ai_usage_governance</asset>
+        <assetType>SemanticModel</assetType>
+        <assetUsageType>Referenced</assetUsageType>
+        <workspace>data360_ai_usage_governance</workspace>
+    </workspaceAssetRelationships>
+</AnalyticsWorkspace>

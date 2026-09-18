@@ -6,9 +6,9 @@ Monitor **Agentforce / GenAI usage per user** on standard Salesforce **Data Clou
 
 ---
 
-## Two adoption tiers (pick one, or both)
+## Three adoption tiers (pick one, several, or all)
 
-The blueprint is split into **two decoupled tiers** so a client is never forced into recurring Data Cloud credit cost.
+The blueprint is split into **decoupled tiers** so a client is never forced into recurring Data Cloud credit cost.
 
 > **Platform truth up front (Trust) — it's ID vs *name*:** the raw AI-telemetry DMO carries only a raw `UserId`, never a name. Two distinct realities follow:
 >
@@ -30,7 +30,10 @@ The join is **materialized** so it can drive visual, native restitution. Two ind
 
 > **2a vs 2b:** the CI (2a) is also reportable, but a report on a CI is *summary-only* (no metric/gauge/table dashboard tiles, no detail rows). Use **2b's custom DMO** when you need the full native dashboard; use **2a** for the polished LWC. They're independent — pick either, both, or neither.
 
-> **The tiers are independent.** Tier 1 (SQL) works even if nothing is ever materialized. Start with Tier 1; add Tier 2a and/or 2b when the value is proven.
+### Tier 3 — Tableau Next executive view · *independent, Concierge-enabled*
+A **Semantic Data Model** built directly on the two standard telemetry DMOs (no CI, no custom DMO, no Batch Data Transform) drives a Tableau Next **dashboard** — 4 KPI cards, a daily cost trend, a feature breakdown, and a detail table — with the same Untagged/Coworker-72-FC business logic as every other tier, plus a native Concierge/Agentforce chat panel on the dashboard. Not a replacement for 2a/2b; an additional path for an executive/governance audience. See `docs/tableau-next-executive-view.md`.
+
+> **The tiers are independent.** Tier 1 (SQL) works even if nothing is ever materialized. Start with Tier 1; add Tier 2a, 2b and/or 3 when the value is proven.
 
 ---
 
@@ -47,10 +50,12 @@ The join is **materialized** so it can drive visual, native restitution. Two ind
 | Batch Data Transform → custom DMO | 2b | **Clickops** — see `docs/SETUP.md` (Data-Kit-packageable only) |
 | `force-app/.../reports/AI_Usage_Governance/*` (3 reports) | 2b | **Deployable metadata** — on the custom DMO's report type |
 | `force-app/.../dashboards/AI_Usage_Governance/AI_Usage_Adoption` | 2b | **Deployable metadata** — grid dashboard (KPI tiles + charts) |
+| Semantic Data Model `data360_ai_usage_governance` | 3 | **Clickops-equivalent** — no metadata type exists; built by `tableau_next/data360_ai_usage_governance_next_demo.py` |
+| `force-app/.../analyticsWorkspaces/*` , `analyticsVisualizations/*`, `analyticsDashboards/*` | 3 | **Deployable metadata** — Tableau Next workspace, 3 visualizations, dashboard (only after the Semantic Data Model exists) |
 
 ---
 
-## Prerequisites (both tiers)
+## Prerequisites (all tiers)
 
 1. **Data Cloud provisioned** on the org (licenses `Data Cloud` / `Customer Data Platform`).
 2. **Agentforce / GenAI usage happening** → the standard DMO `AiAgentGenerativeAiUsage_std__dlm` is auto-populated by the platform.
@@ -67,9 +72,11 @@ The join is **materialized** so it can drive visual, native restitution. Two ind
 - **Tier 1 (SQL):** open Data Cloud → Query Editor → paste `queries/03-usage-normalized.sql` → run. Names resolve in-query, zero recurring cost.
 - **Tier 2a (LWC cockpit):** `sf project deploy start --target-org <your-org>` → **(manual)** run/refresh the CI once in Data Cloud → Calculated Insights so it materializes → assign the permission set → drop `aiUsageCockpit` on a Lightning page.
 - **Tier 2b (native report/dashboard):** verify `ssot__User__dlm` and `AiAgentGenerativeAiUsage_std__dlm` have rows, then **(manual)** build the Batch Data Transform + custom DMO per `docs/SETUP.md` (clickops), then `sf project deploy start -d force-app/main/default/reports -d force-app/main/default/dashboards --target-org <your-org>` to ship the 3 reports + the "AI Usage — Adoption" dashboard.
+- **Tier 3 (Tableau Next):** `python3 tableau_next/data360_ai_usage_governance_next_demo.py` builds the Semantic Data Model, workspace, visualizations and dashboard in one pass on the target org (edit `ORG_ALIAS` at the top of the file). See `docs/tableau-next-executive-view.md`.
 
 See `docs/SETUP.md` for the full reproduction guide (including recovery steps if a Calculated
-Insight deploy gets stuck) and `docs/PACKAGING.md` for the metadata-vs-clickops breakdown.
+Insight deploy gets stuck), `docs/PACKAGING.md` for the metadata-vs-clickops breakdown, and
+`docs/tableau-next-executive-view.md` for Tier 3.
 
 ---
 
